@@ -1,12 +1,23 @@
-function isValidParentheses(s) {
-  const stack = [];
-  const map = { "(": ")", "[": "]", "{": "}" };
-  for (const char of s) {
-    if (char in map) stack.push(char);
-    else {
-      const top = stack.pop();
-      if (map[top] !== char) return false;
+function zigzagLevelOrder(root) {
+  if (!root) return [];
+  const result = [];
+  let isReverse = false;
+  const queue = [root];
+  while (queue.length) {
+    const size = queue.length;
+    const level = [];
+    for (let i = 0; i < size; i++) {
+      const node = queue.shift();
+      if (isReverse) {
+        level.unshift(node.val);
+      } else {
+        level.push(node.val);
+      }
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
     }
+    result.push(level);
+    isReverse = !isReverse;
   }
-  return stack.length === 0;
+  return result;
 }
