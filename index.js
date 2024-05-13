@@ -1,6 +1,9 @@
-const isPrime = (num) => {
-  for (let i = 2, sqrt = Math.sqrt(num); i <= sqrt; i++) {
-    if (num % i === 0) return false;
-  }
-  return num > 1;
+const pullAtIndex = (arr, pullArr) => {
+  let removed = [];
+  let pulled = arr
+    .map((v, i) => (pullArr.includes(i) ? removed.push(v) : v))
+    .filter((v, i) => !pullArr.includes(i));
+  arr.length = 0;
+  pulled.forEach((v) => arr.push(v));
+  return removed;
 };
